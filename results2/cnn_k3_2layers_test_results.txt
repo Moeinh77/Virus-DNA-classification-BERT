@@ -1,34 +1,4 @@
 Test set 2 F1 score:
-0.6485198689007937
-===
-Test set 3 F1 score:
-0.17004029410084598
-===
-Test set 4 F1 score:
-0.13798642404661807
-===
-Test set 5 F1 score:
-0.2240717635895808
-===
-Test set 1 F1 score:
-0.27392728732637156
-===
-Test set 2 F1 score:
-0.6485198689007937
-===
-Test set 3 F1 score:
-0.17004029410084598
-===
-Test set 4 F1 score:
-0.13798642404661807
-===
-Test set 5 F1 score:
-0.2240717635895808
-===
-Test set 1 F1 score:
-0.27392728732637156
-===
-Test set 2 F1 score:
 0.6538701115934199
 ===
 Test set 3 F1 score:
