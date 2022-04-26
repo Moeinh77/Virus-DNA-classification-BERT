@@ -18,9 +18,9 @@ I have used the TensorFlow framework for implementing the models in this work an
 The baseline achieves a higher score when using full sequences, however,transformers work better when sequences are resized to the median length. When using the whole sequences, the baseline cangeneralize better than the more complex transformers models, however when we remove some of the data in resizing the seqeunces to the median length, transformer models work better. The reuslts of testing the models are available in results folder.
 |          |F1 score|
 | Model  | Maximum Length Sequences |Median Length Seqeunces|
-| ------------- | ------------- |
-|Baseline | 0.996  | 0.906 |
-|CNN_Transformer_32  | 0.985 | 0.986  |
+| ------------- | ------------- |------------- |
+| Baseline CNN | 0.996  | 0.906 |
+| CNN_Transformer_32  | 0.985 | 0.986  |
 | CNN_Transformer_64   | 0.914 | 0.959|
 | CNN_Transformer_128   | 0.950 | 0.896 |
 
