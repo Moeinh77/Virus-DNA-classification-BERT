@@ -1,5 +1,5 @@
 ### Abstract
-This project aims to classify the DNA sequences of six differentpathogens including COVID-19. I compare the performance ofTransformer networks and a simple Convolutional Neural Network as the baseline. The dataset includes a training set andfive test sets, I experiment with full lengthed and median lengthed sequences and utilized the F1 score as my metric. 
+This project aims to classify the DNA sequences of six differentpathogens including COVID-19. I compare the performance of Transformer networks and a simple Convolutional Neural Network as the baseline. The dataset includes a training set andfive test sets, I experiment with full lengthed and median lengthed sequences and utilized the F1 score as my metric. 
 
 ### Dataset:
 There are 6 classes of pathogens in this dataset: SARS-CoV-1, MERS-CoV, SARS-CoV-2 Ebola, Dengue, and Influenza. The dataset is gathered by the authors of the paper [1] and was available for download on their website. The dataset includes 18324 samples, the original paper has used only 1500 of this data for training, and the rest is divided into 5 test files. I will use the same number of samples for the training and test as the original paper. The dataset that is made available by the authors of [1] is in the CSV format and each CSV file includes the class number (1-6), class name, and the DNA sequence. 
@@ -14,10 +14,14 @@ I have used T-SNE and PCA methods to reduce the dimensionality of my data so I c
 ### Experimental settings:
 I have used the TensorFlow framework for implementing the models in this work and the models are trained on an NVIDIA GTX 1080Ti GPU. Due to the limitation of resources, the batch size has been set to 4 and all models have been trained for 20 epochs. The global average pooling method has been used instead of flattening in all the models.
 
+### Transformer settings:
+The number of attention heads is set to 2 for the transformer models in my project. Due to the long length of the input sequences, I was not able to feed them directly to the transformer model, therefore I have used a convolution block that includes a conv1d layer and a max-pooling layer to reduce the dimensions of the input. The positional encoded embeddings are fed into the conv block and the result of the convolution is then passed on to the attention block. The results of the attention block are fed to a global average pooling layer and then to a feed-forward layer of 20 nodes before the final softmax layer.
+
+![](CNN_Transformer_32_architecture.png)
+
 ### Results:
 The baseline achieves a higher score when using full sequences, however,transformers work better when sequences are resized to the median length. When using the whole sequences, the baseline cangeneralize better than the more complex transformers models, however when we remove some of the data in resizing the seqeunces to the median length, transformer models work better. The reuslts of testing the models are available in results folder.
-|          |F1 score|
-| ------------- | ------------- |------------- |
+
 | Model  | Maximum Length Sequences |Median Length Seqeunces|
 | ------------- | ------------- |------------- |
 | Baseline CNN | **0.996**  | 0.906 |
