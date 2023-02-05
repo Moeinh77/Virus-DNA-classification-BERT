@@ -1,0 +1,10 @@
+Test set 2F1 score:
+0.919684662084589
+Test set 3F1 score:
+0.9405898605980496
+Test set 4F1 score:
+0.9241338494641917
+Test set 5F1 score:
+0.9419528254280054
+Test set 1F1 score:
+0.8451301391772945

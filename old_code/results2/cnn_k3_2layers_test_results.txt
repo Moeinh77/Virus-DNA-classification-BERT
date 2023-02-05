@@ -1,0 +1,15 @@
+Test set 2 F1 score:
+0.7696382889938496
+===
+Test set 3 F1 score:
+0.9314178672319401
+===
+Test set 4 F1 score:
+0.9388587903557963
+===
+Test set 5 F1 score:
+0.912196806248785
+===
+Test set 1 F1 score:
+0.9810125072745483
+===

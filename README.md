@@ -1,3 +1,7 @@
+## EDIT 2023:
+I decided to re-do this project but with a pretrained model (DNA-BERT) found at this repository: https://github.com/jerryji1993/DNABERT.
+The experiemnts from the last year are in old_code folder now.
+
 ### Introduction
 This project aims to classify the DNA sequences of six different pathogens including COVID-19. I compare the performance of Transformer networks and a simple Convolutional Neural Network as the baseline. The dataset includes a training set and five test sets, I experiment with full lengthed and median lengthed sequences and utilized the F1 score as my metric. 
 
