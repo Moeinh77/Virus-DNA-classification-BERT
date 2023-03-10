@@ -45,7 +45,11 @@ def load_model(model_config, return_model=False):
     print(f'{ model_config["model_path"]} loaded')
 
     model.to(device)
-    model.eval()
+    # model.eval()
 
     if return_model:
         return model, tokenizer, device
+
+
+def tokenize(batch):
+    return tokenizer(batch, padding="max_length", truncation=True)

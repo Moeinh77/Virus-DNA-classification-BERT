@@ -1,4 +1,5 @@
 import torch
+from datasets import Dataset
 
 
 class SeqDataset_HF(torch.utils.data.Dataset):
@@ -17,7 +18,22 @@ class SeqDataset_HF(torch.utils.data.Dataset):
 
     def __len__(self):
         return len(self.labels)
-
+    
+class MyDataset(torch.utils.data.Dataset):
+    def __init__(self, input_ids, attention_masks, labels):
+        self.input_ids = input_ids
+        self.attention_masks = attention_masks
+        self.labels = labels
+        
+    def __len__(self):
+        return len(self.labels)
+    
+    def __getitem__(self, index):
+        return {
+            'input_ids': torch.tensor(self.input_ids[index]),
+            'attention_mask': torch.tensor(self.attention_masks[index]),
+            'labels': torch.tensor(self.labels[index])
+        }
 
 class SeqDataset(torch.utils.data.Dataset):
     """
