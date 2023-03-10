@@ -2,6 +2,10 @@ import torch
 from transformers import (
     AutoTokenizer,
     AutoModelForSequenceClassification,
+    # import bert fast tokenizer
+    BertTokenizerFast,
+    BertForSequenceClassification,
+    BertForSequenceClassification,
 )
 
 def load_model(model_config, return_model=False):
@@ -40,7 +44,7 @@ def load_model(model_config, return_model=False):
 
     tokenizer = AutoTokenizer.from_pretrained(model_config["model_path"] , do_lower_case=False)
 
-    model = AutoModelForSequenceClassification.from_pretrained(model_config["model_path"] ,)
+    model = AutoModelForSequenceClassification.from_pretrained(model_config["model_path"], num_labels=model_config["num_labels"])
 
     print(f'{ model_config["model_path"]} loaded')
 

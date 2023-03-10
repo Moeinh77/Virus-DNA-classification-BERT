@@ -1,25 +1,7 @@
 import torch
 from datasets import Dataset
 
-
-class SeqDataset_HF(torch.utils.data.Dataset):
-    """
-    This class is used to create a dataset for the HuggingFace transformers.
-    """
-
-    def __init__(self, encodings, labels):
-        self.encodings = encodings
-        self.labels = labels
-
-    def __getitem__(self, idx):
-        item = {key: torch.tensor(val[idx]) for key, val in self.encodings.items()}
-        item["labels"] = torch.tensor(self.labels[idx])
-        return item
-
-    def __len__(self):
-        return len(self.labels)
-    
-class MyDataset(torch.utils.data.Dataset):
+class HF_dataset(torch.utils.data.Dataset):
     def __init__(self, input_ids, attention_masks, labels):
         self.input_ids = input_ids
         self.attention_masks = attention_masks
@@ -35,21 +17,28 @@ class MyDataset(torch.utils.data.Dataset):
             'labels': torch.tensor(self.labels[index])
         }
 
-class SeqDataset(torch.utils.data.Dataset):
-    """
-    This class is used to create a dataset in format of pytorch datasets.
-    """
+def val_datasets_generator(val_dir='data/TestData'):
+    for file in os.listdir(val_dir):
+        df_test = pd.read_csv(f'{val_dir}/{file}')
+        print(file, len(df_test))
+        val_kmers, labels_val = [], []
+        
+        cls = 'CLASS' if 'CLASS' in df_test.columns else 'Class'
 
-    def __init__(self, encodings, labels):
-        self.encodings = encodings
-        self.labels = labels
-
-    def __getitem__(self, idx):
-        return self.encodings[idx], self.labels[idx]
-
-    def __len__(self):
-        return len(self.labels)
-
+        for seq, label in zip(df_test['SEQ'], df_test[cls]):
+                kmer_seq = return_kmer(seq, K=KMER)
+                val_kmers.append(kmer_seq)
+                labels_val.append(label-1)
+        val_encodings = tokenizer.batch_encode_plus(
+            val_kmers,
+            max_length=512,
+            pad_to_max_length=True,
+            truncation=True,
+            return_attention_mask=True,
+            return_tensors="pt",
+        )
+        val_dataset = HF_dataset(val_encodings['input_ids'], val_encodings['attention_mask'], labels_val)
+        yield val_dataset
 
 def return_kmer(seq, K=6):
     """
