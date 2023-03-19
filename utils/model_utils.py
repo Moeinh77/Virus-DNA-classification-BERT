@@ -53,7 +53,6 @@ def load_model(model_config, return_model=False):
     print(f'{ model_config["model_HF_path"]} loaded')
 
     model.to(device)
-    # model.eval()
 
     if return_model:
         return model, tokenizer, device
