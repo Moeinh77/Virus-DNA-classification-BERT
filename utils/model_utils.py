@@ -1,12 +1,12 @@
-import torch 
+import torch
 from transformers import (
     AutoTokenizer,
     AutoModelForSequenceClassification,
-    # import bert fast tokenizer
-    BertTokenizerFast,
-    BertForSequenceClassification,
-    BertForSequenceClassification,
 )
+
+import numpy as np
+from sklearn.metrics import accuracy_score, precision_recall_fscore_support
+
 
 def load_model(model_config, return_model=False):
     """
@@ -42,11 +42,15 @@ def load_model(model_config, return_model=False):
     else:
         print("Running the model on CPU")
 
-    tokenizer = AutoTokenizer.from_pretrained(model_config["model_path"] , do_lower_case=False)
+    tokenizer = AutoTokenizer.from_pretrained(
+        model_config["model_HF_path"], do_lower_case=False
+    )
 
-    model = AutoModelForSequenceClassification.from_pretrained(model_config["model_path"], num_labels=model_config["num_labels"])
+    model = AutoModelForSequenceClassification.from_pretrained(
+        model_config["model_HF_path"], num_labels=model_config["num_classes"]
+    )
 
-    print(f'{ model_config["model_path"]} loaded')
+    print(f'{ model_config["model_HF_path"]} loaded')
 
     model.to(device)
     # model.eval()
@@ -55,5 +59,26 @@ def load_model(model_config, return_model=False):
         return model, tokenizer, device
 
 
-def tokenize(batch):
-    return tokenizer(batch, padding="max_length", truncation=True)
+def compute_metrics(eval_preds):
+    """
+    Compute the metrics for the model
+
+    Parameters
+    ----------
+    eval_preds : tuple
+        tuple of predictions and labels
+
+    Returns
+    -------
+    :dict
+        dictionary of metrics
+    """
+
+    predictions, labels = eval_preds
+    predictions = np.argmax(predictions, axis=1)
+
+    precision, recall, f1, _ = precision_recall_fscore_support(
+        labels, predictions, average="weighted"
+    )
+    acc = accuracy_score(labels, predictions)
+    return {"accuracy": acc, "precision": precision, "recall": recall, "f1": f1}
