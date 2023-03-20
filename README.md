@@ -1,8 +1,8 @@
 ## EDIT 2023:
-I decided to re-do this project but with a pretrained model (DNA-BERT) found at this repository: https://github.com/jerryji1993/DNABERT. I have used HuggingFace library for loading the model, training and evaluating it. The pretrained easily and quickly beats my last year implementation which was using the Tensorflow MultiHeadAttention module.
+I decided to re-do this project but with a pretrained model (**DNA-BERT**) found at this repository: https://github.com/jerryji1993/DNABERT. I have used **HuggingFace** library for loading the model, training and evaluating it. The pretrained easily and quickly beats my last year implementation which was using the Tensorflow MultiHeadAttention module.
 The experiements from the last year are in old_code folder now.
 
-I used the Weights and Biases library for logging the reuslts of the training and as shown below in only 2 eopchs the model reaches an f1 score of 0.99. 
+I used the **Weights and Biases** library for logging the reuslts of the training and as shown below in only 2 eopchs the model reaches an f1 score of 0.99. 
 
 ![](data/eval_logs.png)
 
