@@ -6,6 +6,63 @@ I used the Weights and Biases library for logging the reuslts of the training an
 
 ![](data/eval_logs.png)
 
+In order to use fine tune the DNA-BERT model using the HuggingFace API you need to load the model and prepare the sequences like the following:
+
+```
+NUM_CLASSES = # number of the classes in your data
+
+from transformers import (
+    AutoTokenizer,
+    AutoModelForSequenceClassification,
+)
+tokenizer = AutoTokenizer.from_pretrained(
+   zhihan1996/DNA_bert_6, do_lower_case=False
+)
+
+model = AutoModelForSequenceClassification.from_pretrained(
+     zhihan1996/DNA_bert_6, num_labels=NUM_CLASSES
+)
+
+def return_kmer(seq, K=6):
+    """
+    This function outputs the K-mers of a sequence
+    Parameters
+    ----------
+    seq : str
+        A single sequence to be split into K-mers
+    K : int, optional
+        The length of the K-mers, by default 6
+    Returns
+    -------
+    kmer_seq : str
+        A string of K-mers separated by spaces
+    """
+
+    kmer_list = []
+    for x in range(len(seq) - K + 1):
+        kmer_list.append(seq[x : x + K])
+
+    kmer_seq = " ".join(kmer_list)
+    return kmer_seq
+
+sequences = # your DNA sequences 
+
+train_kmers = [return_kmer(seq) for seq in sequences]
+
+train_encodings = tokenizer.batch_encode_plus(
+    train_kmers,
+    max_length=512,  # max len of BERT
+    padding=True,
+    truncation=True,
+    return_attention_mask=True,
+    return_tensors="pt",
+)
+
+train_dataset = HF_dataset(
+    train_encodings["input_ids"], train_encodings["attention_mask"], y_train
+)
+```
+Now you can feed the train_dataset to transformers.Trainer.
 
 ------------------------------------------------------------------------------------------------------------------------------
 ## 2022 version
