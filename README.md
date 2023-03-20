@@ -11,7 +11,7 @@ In order to use fine tune the DNA-BERT model using the HuggingFace API you need 
 ```python
 NUM_CLASSES = # number of the classes in your data
 
-rom utils.data_utils import return_kmer, HF_dataset
+from utils.data_utils import return_kmer, HF_dataset
 from transformers import (
     AutoTokenizer,
     AutoModelForSequenceClassification,
