@@ -8,7 +8,7 @@ I used the Weights and Biases library for logging the reuslts of the training an
 
 In order to use fine tune the DNA-BERT model using the HuggingFace API you need to load the model and prepare the sequences like the following:
 
-```
+```python
 NUM_CLASSES = # number of the classes in your data
 
 from transformers import (
