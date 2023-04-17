@@ -1,4 +1,4 @@
-## EDIT 2023:
+## 2023 version with DNA-BERT:
 I decided to re-do this project but with a pre-trained model (**DNA-BERT**) found at this repository: https://github.com/jerryji1993/DNABERT. I have used **HuggingFace** library for loading the model, training, and evaluating it. The pre-trained easily and quickly beats my last year's implementation which was using the Tensorflow MultiHeadAttention module.
 The experiments from the last year are in the old_code folder now.
 
@@ -49,7 +49,7 @@ In order to run the web app locally you need to install the Flask.
 ![](UI.png)
 
 ------------------------------------------------------------------------------------------------------------------------------
-## 2022 version
+## 2022 version with Transformer Module from TF:
 ### Introduction
 This project aims to classify the DNA sequences of six different pathogens including COVID-19. I compare the performance of Transformer networks and a simple Convolutional Neural Network as the baseline. The dataset includes a training set and five test sets, I experiment with full lengthed and median lengthed sequences and utilized the F1 score as my metric. 
 
