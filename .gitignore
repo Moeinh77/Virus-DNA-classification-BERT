@@ -2,5 +2,7 @@
 *.zip
 /wandb
 *.csv
-mlruns
+/mlruns
 /results
+merged_files.py
+experiements.ipynb

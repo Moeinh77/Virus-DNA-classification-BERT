@@ -60,12 +60,12 @@ def load_model(model_config, return_model=False):
 
 def compute_metrics(eval_preds):
     """
-    Compute the metrics for the model
+    A function for computing the metrics for the model at the end of each epoch
 
     Parameters
     ----------
     eval_preds : tuple
-        tuple of predictions and labels
+        a tuple that includes model predictions and correct labels
 
     Returns
     -------
