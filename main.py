@@ -18,6 +18,7 @@ import numpy as np
 from pathlib import Path
 from utils.data_utils import return_kmer, val_dataset_generator, HF_dataset
 from utils.model_utils import load_model, compute_metrics
+from utils.viz_utils import count_plot
 from transformers import Trainer, TrainingArguments
 
 ############################################
@@ -38,6 +39,8 @@ for seq, label in zip(df_training["SEQ"], df_training["CLASS"]):
     labels_train.append(label - 1)
 
 NUM_CLASSES = len(np.unique(labels_train))
+
+count_plot(labels_train, "Training")
 
 model_config = {
     "model_path": f"zhihan1996/DNA_bert_{KMER}",
@@ -69,6 +72,7 @@ for seq, label in zip(df_val["SEQ"], df_val["CLASS"]):
     val_kmers.append(kmer_seq)
     labels_val.append(label - 1)
 
+count_plot(labels_val, "Validation")
 
 val_encodings = tokenizer.batch_encode_plus(
     val_kmers,

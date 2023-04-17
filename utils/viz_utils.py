@@ -4,9 +4,8 @@ import matplotlib.pyplot as plt
 from sklearn.decomposition import PCA
 import seaborn as sns
 
-labels = ['SARS-COV-1', 'MERS', 'SARS-COV-2', 'Ebola', 'Dengue', 'Influenza']
 
-def count_plot(Y, label):
+def count_plot(y, title):
     """
     Plot the class distribution of the data set set
 
@@ -21,36 +20,61 @@ def count_plot(Y, label):
     -------
     None
     """
-    sns.countplot(Y)
-    plt.title(f'Class dist in {} set')
-    plt.savefig(f'{label}.png')
+    sns.countplot(y)
+    plt.title(f'Class dist in {title} set')
+    plt.savefig(f'{title}.png')
     plt.show()
 
-def plot_tsne(X, class_num, label):
-    X_embedded_tsne = TSNE(n_components=2, n_iter = 2000 , init='random').fit_transform(X)
+def plot_tsne(X, y, title):
+    """
+    Plot the TSNE transform of X colored by y
 
-    lower_bound = 0
-    for k in range(1,class_num):
-        upper_bound= 250*k
-        plt.scatter(X_embedded_tsne[lower_bound:upper_bound,0],
-                    X_embedded_tsne[lower_bound:upper_bound,1]
-                    )
-        lower_bound = upper_bound
+    Parameters
+    ----------
+    X : numpy array
+        The data to be transformed. It can be extracted features by a model e.g. DNA-BERT
+    y : numpy array
+        The class labels of the data
 
-    plt.title(f'TSNE - {label} data 2D')
-    plt.legend(labels)
-    plt.savefig(f'{label}.png')    
+        
+    Returns
+    -------
+    None
+    """
 
-def plot_pca(X, class_num, label):
-    X_embedded_pca = PCA(n_components=2).fit_transform(X)
-    lower_bound = 0
-    for k in range(1,class_num):
-        upper_bound= 250*k
-        plt.scatter(X_embedded_pca[lower_bound:upper_bound,0],
-                    X_embedded_pca[lower_bound:upper_bound,1]
-                    )
-        lower_bound = upper_bound
+    X_tsne = TSNE(n_components=2, n_iter = 2000 , init='random').fit_transform(X)
 
-    plt.title('PCA - Training data 2D')
-    plt.legend(labels, loc = 'upper left')
-    plt.savefig(f'{label}.png')
+    plt.scatter(X_tsne[:, 0], X_tsne[:, 1], c=y)
+    plt.title(f'TSNE - {title} data 2D')
+    plt.legend(title)
+    plt.savefig(f'{title}.png')
+    plt.show()    
+
+def plot_pca(X, y, title):
+    """
+    Plot the PCA transform of X colored by y
+    
+    Parameters
+    ----------
+    X : numpy array
+        The data to be transformed. It can be extracted features by a model e.g. DNA-BERT
+    y : numpy array
+        The class labels of the data
+    
+    Returns
+    -------
+    None
+    """
+    
+    # create a PCA object with 2 components
+    pca = PCA(n_components=2)
+
+    # fit the PCA object to X and transform X
+    X_pca = pca.fit_transform(X)
+
+    # plot the PCA transform of X colored by y
+    plt.scatter(X_pca[:, 0], X_pca[:, 1], c=y)
+    plt.xlabel('Principal Component 1')
+    plt.ylabel('Principal Component 2')
+    plt.savefig(f'{title}.png')
+    plt.show()
