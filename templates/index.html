@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Virus DNA Classifier</title>
+    <style>
+        #logo {
+            width: 100px;
+            height: auto;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #F0F0F0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #3E82FC;
+        }
+
+        form {
+            margin: 0 auto;
+            width: 50%;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            background-color: #fff;
+        }
+
+        label {
+            font-size: 1.2em;
+            color: #3E82FC;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="submit"] {
+            background-color: #3E82FC;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #306BCF;
+        }
+
+        .prediction {
+            color: #3E82FC;
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            background-color: #fff;
+        }
+
+        .prediction-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .prediction-value {
+            font-size: 1.2em;
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>
+        <img id="logo" src="/static/dna_logo.png" style="float: middle; margin-left: 0;">
+        Virus DNA Classifier
+    </h1>
+
+    <form action="{{ url_for('predict') }}" method="POST">
+        <label for="input_sequence">Enter your DNA sequence:</label><br>
+        <input type="text" id="input_sequence" name="input_sequence"><br><br>
+        <input type="submit" value="Submit">
+        {% if prediction %}
+        <div class="prediction">
+            <p class="prediction-title">Prediction:</p>
+            <p class="prediction-value">{{ prediction }}</p>
+            <p class="prediction-title">Probability:</p>
+            <p class="prediction-value">{{ probability }}%</p>
+        </div>
+        {% endif %}
+    </form>
+
+</body>
+
+</html>

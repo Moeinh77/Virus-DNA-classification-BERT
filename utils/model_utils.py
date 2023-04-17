@@ -15,7 +15,7 @@ def load_model(model_config, return_model=False):
     Parameters
     ----------
     model_config : dict
-        model configuration
+        model configuration. keys: model_path, num_classes
 
     return_model : bool, optional
         return model, tokenizer, device, by default False
@@ -43,14 +43,14 @@ def load_model(model_config, return_model=False):
         print("Running the model on CPU")
 
     tokenizer = AutoTokenizer.from_pretrained(
-        model_config["model_HF_path"], do_lower_case=False
+        model_config["model_path"], do_lower_case=False
     )
 
     model = AutoModelForSequenceClassification.from_pretrained(
-        model_config["model_HF_path"], num_labels=model_config["num_classes"]
+        model_config["model_path"], num_labels=model_config["num_classes"]
     )
 
-    print(f'{ model_config["model_HF_path"]} loaded')
+    print(f'{ model_config["model_path"]} loaded')
 
     model.to(device)
 
@@ -80,4 +80,6 @@ def compute_metrics(eval_preds):
         labels, predictions, average="weighted"
     )
     acc = accuracy_score(labels, predictions)
-    return {"accuracy": acc, "precision": precision, "recall": recall, "f1": f1}
+
+    metrics = {"accuracy": acc, "precision": precision, "recall": recall, "f1": f1}
+    return metrics
