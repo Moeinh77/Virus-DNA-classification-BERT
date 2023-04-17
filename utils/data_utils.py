@@ -116,3 +116,21 @@ def return_kmer(seq, K=3):
 
     kmer_seq = " ".join(kmer_list)
     return kmer_seq
+
+def is_dna_sequence(sequence):
+    """
+    This function checks if a sequence is a DNA sequence
+
+    Parameters
+    ----------
+    sequence : str
+        A sequence to be checked
+
+    Returns
+    -------
+    bool
+        True if the sequence is a DNA sequence, False otherwise
+    """
+
+    valid_bases = {'A', 'C', 'G', 'T'}
+    return all(base in valid_bases for base in sequence.upper())

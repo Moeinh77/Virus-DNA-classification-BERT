@@ -4,7 +4,7 @@
 
 import torch
 from utils.model_utils import load_model
-from utils.data_utils import return_kmer
+from utils.data_utils import return_kmer, is_dna_sequence
 from flask import Flask, render_template, request
 
 app = Flask(__name__, template_folder="templates")
@@ -43,6 +43,11 @@ def huggingface_predict(input):
     predicted_class : int
         The predicted class of the input sequence
     """
+    
+    # Check if the input sequence is a DNA sequence
+    if not is_dna_sequence(input):
+        return "Invalid Input. Please enter your sequence in upper case", 0
+
     kmer_seq = return_kmer(input, K=KMER)
 
     # Tokenize the input sequence

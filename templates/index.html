@@ -85,7 +85,17 @@
         Virus DNA Classifier
     </h1>
 
+    
+    
+
     <form action="{{ url_for('predict') }}" method="POST">
+        <div></div>
+        <p>
+            Viruses that can be predicted: <br>
+            SARS-COV-1, MERS, SARS-COV-2, Ebola, Dengue, Influenza
+        </p>
+    
+        </div>
         <label for="input_sequence">Enter your DNA sequence:</label><br>
         <input type="text" id="input_sequence" name="input_sequence"><br><br>
         <input type="submit" value="Submit">
