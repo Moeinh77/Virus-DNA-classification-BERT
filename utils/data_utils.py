@@ -95,7 +95,7 @@ def val_dataset_generator(
 
 def return_kmer(seq, K=3):
     """
-    This function outputs the K-mers of a sequence
+    This function outputs the K-mers of a DNA sequence
 
     Parameters
     ----------
@@ -105,9 +105,14 @@ def return_kmer(seq, K=3):
         The length of the K-mers to be used, by default 3
 
     Returns
-    -------
+    ----------
     kmer_seq : str
         A string of K-mers separated by spaces.
+
+    Example
+    ----------
+    >>> return_kmer("ATCGATCG", K=3)
+    'ATC TCG CGA GAT ATC TCG'
     """
 
     kmer_list = []
@@ -116,6 +121,7 @@ def return_kmer(seq, K=3):
 
     kmer_seq = " ".join(kmer_list)
     return kmer_seq
+
 
 def is_dna_sequence(sequence):
     """
@@ -127,10 +133,16 @@ def is_dna_sequence(sequence):
         A sequence to be checked
 
     Returns
-    -------
+    ----------
     bool
         True if the sequence is a DNA sequence, False otherwise
+
+    Example
+    ----------
+    >>> is_dna_sequence("ATCGATCG")
+    True
     """
 
-    valid_bases = {'A', 'C', 'G', 'T'}
+    valid_bases = {"A", "C", "G", "T"}
     return all(base in valid_bases for base in sequence.upper())
+
